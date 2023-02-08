@@ -1,0 +1,58 @@
+server:
+  log_level: warn
+metrics:
+  wal_directory: C:\ProgramData\grafana-agent-wal
+  global:
+    scrape_interval: 1s
+  configs:
+  - name: integrations
+    scrape_configs:
+      - job_name: integrations/spring-boot
+        static_configs:
+          - targets: ['localhost:8080']
+        metrics_path: /actuator/prometheus
+    remote_write:
+      - url: https://prometheus-us-central2.grafana.net/api/prom/push
+        basic_auth:
+          username: <user_id>
+          password: <pass>
+integrations:
+  windows_exporter:
+    enabled: true
+logs:
+  configs:
+  - name: default
+    positions:
+      filename: /tmp/positions.yaml
+    scrape_configs:
+      - job_name: varlogs
+        static_configs:
+          - targets: [localhost]
+            labels:
+              job: varlogs
+              __path__: E:\grafana_spring\source-processing-utility\*log
+    clients:
+      - url: https://<user_id>:<pass>@logs-prod-us-central2.grafana.net/loki/api/v1/push
+traces:
+  configs:
+  - name: default
+    service_graphs:
+      enabled: true
+    remote_write:
+      - endpoint: tempo-prod-09-us-central2.grafana.net:443
+        basic_auth:
+          username: <user_id>
+          password: <pass>=
+    receivers:
+      jaeger:
+        protocols:
+          grpc:
+          thrift_binary:
+          thrift_compact:
+          thrift_http:
+      zipkin:
+      otlp:
+        protocols:
+          http:
+          grpc:
+      opencensus:
