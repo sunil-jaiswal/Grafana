@@ -21,3 +21,13 @@ Hit below url in the browser
 http://localhost:8080/hello
 
 
+You will see below metrics in grafana
+![image](https://user-images.githubusercontent.com/19929747/217584678-9950c898-d081-4ed6-be80-48cbacb9e811.png)
+
+Below logs
+![image](https://user-images.githubusercontent.com/19929747/217584959-76fde779-7548-4c4d-8bbb-50020521ae72.png)
+
+Below traces
+![image](https://user-images.githubusercontent.com/19929747/217585200-4fb396b6-ed82-4778-ae40-a8e59ef5e6a7.png)
+
+
